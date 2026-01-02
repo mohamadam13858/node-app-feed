@@ -12,4 +12,7 @@ router.post('/post', [
     body('content').trim().isLength({ min: 5 })
 ], FeedConrtoller.createPost)
 
+router.get('/post/:postId' , FeedConrtoller.getPost)
+
 module.exports = router
+
