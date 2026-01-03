@@ -19,5 +19,8 @@ router.put('/post/:postId', [
     body('content').trim().isLength({ min: 5 })
 ], FeedConrtoller.updatePost)
 
+
+router.delete('/post/:postId', FeedConrtoller.deletePost)
+
 module.exports = router
 
