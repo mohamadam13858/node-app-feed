@@ -8,12 +8,12 @@ const router = express.Router()
 
 router.get('/posts', isAuth , FeedConrtoller.getPosts)
 
-router.post('/post', [
+router.post('/post' , isAuth, [
     body('title').trim().isLength({ min: 5 }),
     body('content').trim().isLength({ min: 5 })
 ], FeedConrtoller.createPost)
 
-router.get('/post/:postId', FeedConrtoller.getPost)
+router.get('/post/:postId', isAuth, FeedConrtoller.getPost)
 
 router.put('/post/:postId', [
     body('title').trim().isLength({ min: 5 }),
@@ -21,7 +21,7 @@ router.put('/post/:postId', [
 ], FeedConrtoller.updatePost)
 
 
-router.delete('/post/:postId', FeedConrtoller.deletePost)
+router.delete('/post/:postId' , isAuth, FeedConrtoller.deletePost)
 
 module.exports = router
 
