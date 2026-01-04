@@ -15,7 +15,7 @@ router.post('/post' , isAuth, [
 
 router.get('/post/:postId', isAuth, FeedConrtoller.getPost)
 
-router.put('/post/:postId', [
+router.put('/post/:postId' , isAuth, [
     body('title').trim().isLength({ min: 5 }),
     body('content').trim().isLength({ min: 5 })
 ], FeedConrtoller.updatePost)
