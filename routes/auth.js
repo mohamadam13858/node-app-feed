@@ -17,5 +17,7 @@ router.put('/signup', [
     body('name').trim().not().isEmpty()
 ], AuthConrtoller.signup)
 
+router.post('/login' , AuthConrtoller.login )
+
 module.exports = router
 
