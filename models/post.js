@@ -14,12 +14,13 @@ const postSchema = new Schema({
     content: {
         type: String,
         required: true
-    } , 
+    },
     creator: {
-        type: Object , 
-        required: String
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
-} , {timestamps: true})
+}, { timestamps: true })
 
 
-module.exports = mongoose.model('Post' , postSchema)
+module.exports = mongoose.model('Post', postSchema)
