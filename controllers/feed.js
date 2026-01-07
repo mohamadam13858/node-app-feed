@@ -64,9 +64,10 @@ exports.createPost = async (req, res, next) => {
 }
 
 
-exports.getPost = (req, res, next) => {
+exports.getPost = async (req, res, next) => {
     const postId = req.params.postId
-    Post.findById(postId).then(post => {
+    try {
+        const post = await Post.findById(postId)
         if (!post) {
             const error = new Error('Could not found post. ')
             error.statusCode = 404
@@ -76,12 +77,12 @@ exports.getPost = (req, res, next) => {
             message: 'Post fetched.',
             post: post
         })
-    }).catch(err => {
+    } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500
         }
         next(err)
-    })
+    }
 }
 
 
@@ -156,7 +157,7 @@ exports.deletePost = async (req, res, next) => {
         const user = await User.findById(req.userId)
         user.posts.pull(postId)
         await user.save()
-        io.getIo().emit('posts' , { action: 'delete' , post: postId })
+        io.getIo().emit('posts', { action: 'delete', post: postId })
         res.status(200).json({ message: 'Deleted post' })
     } catch (err) {
         if (!err.statusCode) {
